@@ -10,7 +10,8 @@ input_path = os.path.dirname(__file__) + '/../data/geophysical/'
 @pytest.fixture(scope='module')
 def get_data():
     header, data = read_in_geophysical_data(input_path + 'grav.ers', input_path + 'grav')
-    lines = read_in_dat_files(input_path + 'grav.dat')
+    columns_map = ['Line', 'Station', 'East_KKJ', 'North_KKJ', 'Lon_Intl24', 'Lat_Intl24', 'Elev_m', 'Orig_Boug267', 'Terr_corr', 'Curv_corr', 'Boug310',  'TC_Boug310', 'TC+Curv310']
+    lines = read_in_dat_files(input_path + 'grav.dat', columns_map=columns_map)
     return header, data, lines
 
 
@@ -18,7 +19,7 @@ def test_data_retrieved(get_data):
     header, dataset, lines = get_data
     print(header)
     # print(dataset)
-    print(lines[0:2])
+    # print(lines[0:2])
     # print("Driver: {}/{}".format(dataset.GetDriver().ShortName,
     #                              dataset.GetDriver().LongName))
     # print("Size is {} x {} x {}".format(dataset.RasterXSize,
